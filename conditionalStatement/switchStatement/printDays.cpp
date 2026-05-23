@@ -5,7 +5,7 @@ for 2 print tuesday and so on till 7 */
 #include <iostream>
 using namespace std;
 
-int main()
+int main
 {
     int day;
     cin >> day;
