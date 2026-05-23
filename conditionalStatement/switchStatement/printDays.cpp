@@ -2,7 +2,7 @@
 for 1 print monday, 
 for 2 print tuesday and so on till 7 */
 
-#include <iostream>
+#include <iostream
 using namespace std;
 
 int main()
