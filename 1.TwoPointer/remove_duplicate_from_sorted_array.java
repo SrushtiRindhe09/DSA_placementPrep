@@ -35,7 +35,4 @@ public class remove_duplicate_from_sorted_array
         // i is an index, so add 1 to get the total number of unique elements.
         return i + 1;
     }
-
-
-    
 }
