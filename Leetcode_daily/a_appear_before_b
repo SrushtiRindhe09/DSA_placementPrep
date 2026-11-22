@@ -1,0 +1,144 @@
+# 2124. Check if All A's Appears Before All B's
+
+**Difficulty:** Easy  
+**Topic:** String, Traversal, Boolean Flag  
+**Language:** Java
+
+## 1. Problem Understanding
+
+We are given a string containing only `'a'` and `'b'`.
+
+We need to check whether all occurrences of `'a'` appear before all occurrences of `'b'`.
+
+- If the condition is satisfied, return `true`.
+- Otherwise, return `false`.
+
+### Examples
+
+| Input | Output | Reason |
+|---|---|---|
+| `"aaabbb"` | `true` | All a's appear before b's |
+| `"aabb"` | `true` | Correct order |
+| `"abab"` | `false` | An a appears after a b |
+| `"bbb"` | `true` | No a exists |
+| `"aaa"` | `true` | No b exists |
+
+## 2. Intuition
+
+The main observation is:
+
+**Once we encounter the first `'b'`, we should never encounter another `'a'`.**
+
+Why?
+
+Because every `'a'` must appear before every `'b'`.
+
+We can solve this problem by traversing the string once and maintaining a boolean variable.
+
+## 3. Approach – Boolean Flag
+
+We use a boolean variable:
+
+`foundB = false`
+
+It indicates whether we have encountered a `'b'` while traversing the string.
+
+### Logic
+
+1. Start traversing the string from left to right.
+2. If the current character is `'b'`, set `foundB = true`.
+3. If the current character is `'a'` and `foundB` is already true, return `false`.
+4. If the complete string is traversed without finding this invalid condition, return `true`.
+
+## 4. Java Code
+
+```java
+class Solution {
+    public boolean checkString(String s) {
+
+        boolean foundB = false;
+
+        for (int i = 0; i < s.length(); i++) {
+
+            if (s.charAt(i) == 'b') {
+                foundB = true;
+            }
+
+            if (s.charAt(i) == 'a' && foundB) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+```
+
+## 5. Dry Run
+
+**Input:** `s = "aababb"`
+
+| Index | Character | foundB | Action |
+|---|---|---|---|
+| 0 | a | false | Continue |
+| 1 | a | false | Continue |
+| 2 | b | true | Mark b found |
+| 3 | a | true | Return false |
+
+**Output:** `false`
+
+Reason: We encountered an `'a'` after already encountering a `'b'`.
+
+## 6. Alternative Approach – Using indexOf()
+
+We can also solve this problem using Java's built-in `indexOf()` method.
+
+```java
+class Solution {
+    public boolean checkString(String s) {
+        return s.indexOf("ba") == -1;
+    }
+}
+```
+
+### Why does this work?
+
+If an `'a'` appears after a `'b'`, there must be at least one `"ba"` adjacent pair somewhere in the string.
+
+- If `"ba"` exists → Return `false`.
+- If `"ba"` does not exist → Return `true`.
+
+## 7. Complexity Analysis
+
+| Complexity | Value | Explanation |
+|---|---|---|
+| Time | O(n) | We traverse the string only once |
+| Space | O(1) | We use only one boolean variable |
+
+Here, `n` represents the length of the string.
+
+## 8. Important Learning – Boolean Flag Pattern
+
+**Concept:** A boolean flag helps us remember whether a particular event has already occurred during traversal.
+
+In this problem:
+
+- `false` means we haven't encountered `'b'` yet.
+- `true` means we have encountered at least one `'b'`.
+
+This pattern is useful in problems involving:
+
+- Checking the order of elements.
+- Detecting invalid sequences.
+- Validating strings.
+- Tracking whether a particular condition has occurred.
+
+## 9. Revision in 10 Seconds
+
+Remember just one rule:
+
+**After the first `'b'`, no `'a'` should appear.**
+
+If we find such an `'a'`, return `false`. Otherwise, return `true`.
+
+**Pattern learned:** String Traversal + Boolean Flag.
